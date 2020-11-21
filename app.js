@@ -14,6 +14,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 const employees = [];
+let htmlPage;
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -33,7 +34,8 @@ const employeeTypePrompt = () => {
         }
     ]).then (function(response) {
         if(response.empType === "I'm done adding team members"){
-            render(employees);
+            htmlPage = render(employees);
+            writeHTMLFile(htmlPage);
         }
         else{
             employeeDataPrompt(response.empType);
@@ -45,7 +47,8 @@ const employeeTypePrompt = () => {
 const employeeDataPrompt = (type) => {
     
     let newEmployee;
-    
+
+    //get the generic info first
     inquirer.prompt([{
         type: "input",
         message: "What is the employee's name?",
@@ -61,7 +64,7 @@ const employeeDataPrompt = (type) => {
         message: "What is the employee's email?",
         name: "email"
         }
-    ]).then (function(basicData) {
+    ]).then (function(basicData) { //then the specific info per employee type
         switch(type){
             case "Manager":
                 inquirer.prompt([{
@@ -71,8 +74,9 @@ const employeeDataPrompt = (type) => {
                     }
                 ]).then (function(typeData){
                     newEmployee = new Manager(basicData.name, basicData.id, basicData.email, typeData.officeNum);
-                    //Add the new employee to the employee array
+                    //Add the new employee to the employee array and get the next employee
                     employees.push(newEmployee);
+                    employeeTypePrompt();
                 })
             break;
             case "Engineer":
@@ -83,8 +87,9 @@ const employeeDataPrompt = (type) => {
                     }
                 ]).then (function(typeData){
                     newEmployee = new Engineer(basicData.name, basicData.id, basicData.email, typeData.githubName);
-                    //Add the new employee to the employee array
+                    //Add the new employee to the employee array and get the next employee
                     employees.push(newEmployee);
+                    employeeTypePrompt();
                 })
             break;
             case "Intern":
@@ -95,8 +100,9 @@ const employeeDataPrompt = (type) => {
                     }
                 ]).then (function(typeData){
                     newEmployee = new Intern(basicData.name, basicData.id, basicData.email, typeData.school);
-                    //Add the new employee to the employee array
+                    //Add the new employee to the employee array and get the next employee
                     employees.push(newEmployee);
+                    employeeTypePrompt();
                 })
             break;
             default:
@@ -104,26 +110,17 @@ const employeeDataPrompt = (type) => {
                 employeeTypePrompt();
             break;
         }
-        
-
-        //get the next employee from the user
-        //employeeTypePrompt();
     })
 }
 
-// console.log(response);
-//     let markdown = generateMarkdown(response);
+//Prints the HTML file to the output folder
+const writeHTMLFile = (htmlString) => {
+    console.log(htmlString);
+    // const writeFileAsync = util.promisify(fs.writeFile);
 
-//     writeFileAsync("README.md", markdown).then( 
-//         err => console.log("Success!")
-//     );
-
-// function generateMarkdown(response) {
-//     let markdownString = 
-// `
-// `
-//     return(markdownString)
-// }
+    // const OUTPUT_DIR = path.resolve(__dirname, "output");
+    // const outputPath = path.join(OUTPUT_DIR, "team.html");
+}
 
 //Initial user prompt function
 const welcomePrompt = () => {
