@@ -18,6 +18,7 @@ const employees = [];
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+//Function prompts user for which type of member they'd like to add, or calls the render if they're done adding members.
 const employeeTypePrompt = () => {
     inquirer.prompt([{
         type: "list",
@@ -29,21 +30,72 @@ const employeeTypePrompt = () => {
             "I'm done adding team members"
         ],
         name: "empType"
-    }
-]).then (function(response) {
-    if(response.empType === "I'm done adding team members"){
-        render(employees);
-    }
-    else{
-        employeeDataPrompt(response.empType);
-    }
-})
+        }
+    ]).then (function(response) {
+        if(response.empType === "I'm done adding team members"){
+            render(employees);
+        }
+        else{
+            employeeDataPrompt(response.empType);
+        }
+    })
 }
 
+//Function creates employee objects based on user input
 const employeeDataPrompt = (type) => {
-    console.log(`Welcome to the team builder app. `)
-    //employeeTypePrompt();
+    
+    let newEmployee;
+    console.log(type);
+
+    inquirer.prompt([{
+        type: "input",
+        message: "What is the employee's name?",
+        name: "name"
+        },
+        {
+        type: "input",
+        message: "What is the employee's id?",
+        name: "id"
+        },
+        {
+        type: "input",
+        message: "What is the employee's email?",
+        name: "email"
+        }
+    ]).then (function(basicData) {
+        switch(type){
+            case "Manager":
+                inquirer.prompt([{
+                    type: "input",
+                    message: "What is the managers's office number?",
+                    name: "officeNum"
+                    }
+                ]).then (function(typeData){
+                    newEmployee = new Manager(basicData.name, basicData.id, basicData.email, typeData.officeNum);
+
+                    //Add the new employee to the employee array
+                    employees.push(newEmployee);
+                    console.log(employees);
+                })
+            break;
+            case "Engineer":
+                newEmployee = new Engineer();
+            break;
+            case "Intern":
+                newEmployee = new Intern();
+            break;
+            default:
+                console.log("Please enter a valid employee type")
+                employeeTypePrompt();
+            break;
+        }
+        
+
+        //get the next employee from the user
+        //employeeTypePrompt();
+    })
 }
+
 // console.log(response);
 //     let markdown = generateMarkdown(response);
 
