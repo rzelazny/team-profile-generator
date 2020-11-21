@@ -40,7 +40,9 @@ Anyone is free to fork their own version of the repo.
 
 ## Tests
 
-There are currently no tests for this project.
+Tests can be run using the command npm run test.
+
+Current tests verify that the employee classes match requirement specs.
 
 ## Credits
 
