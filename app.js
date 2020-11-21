@@ -14,7 +14,6 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 const employees = [];
-let htmlPage;
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -34,7 +33,7 @@ const employeeTypePrompt = () => {
         }
     ]).then (function(response) {
         if(response.empType === "I'm done adding team members"){
-            htmlPage = render(employees);
+            let htmlPage = render(employees);
             writeHTMLFile(htmlPage);
         }
         else{
@@ -113,32 +112,19 @@ const employeeDataPrompt = (type) => {
     })
 }
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-//Prints the HTML file to the output folder
+//Function writes the HTML file to the output path
 const writeHTMLFile = (htmlString) => {
 
-// check if directory exists
-if (fs.existsSync(outputPath)) {
-    writeFileAsync(outputPath, htmlString).then( 
-        err => console.log("Success!")
-    );
-} else {
-    console.log('Directory not found.');
-    fs.mkdirSync(OUTPUT_DIR);
-    writeFileAsync(outputPath, htmlString).then( 
-        err => console.log("Success!")
-    );
-}
+    // check if directory exists
+    if (!fs.existsSync(outputPath)) {
+        //make the directory if it doesn't exist
+        fs.mkdirSync(OUTPUT_DIR);
+    }
 
-    
-
-    // const OUTPUT_DIR = path.resolve(__dirname, "output");
-    // const outputPath = path.join(OUTPUT_DIR, "team.html");
+    //write the HTML file to the outputPath
+    writeFileAsync(outputPath, htmlString).then( 
+        err => console.log(`HTML Page generated! Output at: ${outputPath}`)
+    );
 }
 
 //Initial user prompt function
