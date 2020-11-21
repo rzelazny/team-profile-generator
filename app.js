@@ -4,15 +4,50 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const util = require ("util");
+
+const writeFileAsync = util.promisify(fs.writeFile);
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employees = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+const promptUser = () => {
+    inquirer.prompt([{
+        type: "input",
+        message: "What is your GitHub user name?",
+        name: "githubName"
+    },
+    {
+        type: "input",
+        message: "What is your email address?",
+        name: "email"
+    },
+]).then (function(response) {
+    console.log(response);
+    let markdown = generateMarkdown(response);
+
+    writeFileAsync("README.md", markdown).then( 
+        err => console.log("Success!")
+    );
+})
+}
+
+function generateMarkdown(response) {
+    let markdownString = 
+`
+`
+    return(markdownString)
+}
+
+//always run the user prompt
+promptUser();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
