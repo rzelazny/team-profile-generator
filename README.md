@@ -26,6 +26,10 @@ Requires installation of node.js and the inquirer package.
 
 Run the code via the terminal with command: node app
 
+Example output:
+
+![Image of team profile HTML page](https://github.com/rzelazny/team-profile-generator/blob/main/assets/images/teamBuilderOutput.png)
+
 ## License
 
 This repo is licenced under the MIT license.
