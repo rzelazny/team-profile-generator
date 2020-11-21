@@ -45,8 +45,7 @@ const employeeTypePrompt = () => {
 const employeeDataPrompt = (type) => {
     
     let newEmployee;
-    console.log(type);
-
+    
     inquirer.prompt([{
         type: "input",
         message: "What is the employee's name?",
@@ -72,17 +71,33 @@ const employeeDataPrompt = (type) => {
                     }
                 ]).then (function(typeData){
                     newEmployee = new Manager(basicData.name, basicData.id, basicData.email, typeData.officeNum);
-
                     //Add the new employee to the employee array
                     employees.push(newEmployee);
-                    console.log(employees);
                 })
             break;
             case "Engineer":
-                newEmployee = new Engineer();
+                inquirer.prompt([{
+                    type: "input",
+                    message: "What is the engineer's guthub username?",
+                    name: "githubName"
+                    }
+                ]).then (function(typeData){
+                    newEmployee = new Engineer(basicData.name, basicData.id, basicData.email, typeData.githubName);
+                    //Add the new employee to the employee array
+                    employees.push(newEmployee);
+                })
             break;
             case "Intern":
-                newEmployee = new Intern();
+                inquirer.prompt([{
+                    type: "input",
+                    message: "What is the intern's school name?",
+                    name: "school"
+                    }
+                ]).then (function(typeData){
+                    newEmployee = new Intern(basicData.name, basicData.id, basicData.email, typeData.school);
+                    //Add the new employee to the employee array
+                    employees.push(newEmployee);
+                })
             break;
             default:
                 console.log("Please enter a valid employee type")
