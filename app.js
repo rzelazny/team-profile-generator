@@ -18,36 +18,52 @@ const employees = [];
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-const promptUser = () => {
+const employeeTypePrompt = () => {
     inquirer.prompt([{
-        type: "input",
-        message: "What is your GitHub user name?",
-        name: "githubName"
-    },
-    {
-        type: "input",
-        message: "What is your email address?",
-        name: "email"
-    },
+        type: "list",
+        message: "What type of employee would you like to add?",
+        choices: [
+            "Manager",
+            "Engineer",
+            "Intern",
+            "I'm done adding team members"
+        ],
+        name: "empType"
+    }
 ]).then (function(response) {
-    console.log(response);
-    let markdown = generateMarkdown(response);
-
-    writeFileAsync("README.md", markdown).then( 
-        err => console.log("Success!")
-    );
+    if(response.empType === "I'm done adding team members"){
+        render(employees);
+    }
+    else{
+        employeeDataPrompt(response.empType);
+    }
 })
 }
 
-function generateMarkdown(response) {
-    let markdownString = 
-`
-`
-    return(markdownString)
+const employeeDataPrompt = (type) => {
+    console.log(`Welcome to the team builder app. `)
+    //employeeTypePrompt();
+}
+// console.log(response);
+//     let markdown = generateMarkdown(response);
+
+//     writeFileAsync("README.md", markdown).then( 
+//         err => console.log("Success!")
+//     );
+
+// function generateMarkdown(response) {
+//     let markdownString = 
+// `
+// `
+//     return(markdownString)
+// }
+
+//Initial user prompt function
+const welcomePrompt = () => {
+    console.log(`Welcome to the team builder app. `)
+    employeeTypePrompt();
 }
 
-//always run the user prompt
-promptUser();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -68,3 +84,6 @@ promptUser();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+//start with the welcome prompt
+welcomePrompt();
