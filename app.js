@@ -30,8 +30,14 @@ const employeeTypePrompt = () => {
         }
     ]).then (function(response) {
         if(response.empType === "I'm done adding team members"){
-            let htmlPage = render(employees);
-            writeHTMLFile(htmlPage);
+            if(employees.some((staff) => staff instanceof Manager)){
+                let htmlPage = render(employees);
+                writeHTMLFile(htmlPage);
+            }
+            else{
+                console.log("A team is nothing without a leader, please add a manager!");
+                employeeTypePrompt();
+            }
         }
         else{
             employeeDataPrompt(response.empType);
