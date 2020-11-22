@@ -118,9 +118,23 @@ const employeeDataPrompt = (type) => {
                     type: "input",
                     message: "What is the engineer's guthub username?",
                     name: "githubName"
-                    }
+                    },
+                    {
+                        type: "input",
+                        message: "What is the engineer's after hours phone number (xxx-xxx-xxxx)?",
+                        name: "phone",
+                        validate: function (phone) {
+                            valid =  /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)
+                            if (valid) {
+                                return true;
+                            } else {
+                                console.log(`   Please enter a phone number with area code`)
+                                return false;
+                            }
+                            }
+                        }
                 ]).then (function(typeData){
-                    newEmployee = new Engineer(basicData.name, basicData.id, basicData.email, typeData.githubName);
+                    newEmployee = new Engineer(basicData.name, basicData.id, basicData.email, typeData.githubName, typeData.phone);
                     //Add the new employee to the employee array and get the next employee
                     employees.push(newEmployee);
                     employeeTypePrompt();
