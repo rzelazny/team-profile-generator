@@ -56,12 +56,30 @@ const employeeDataPrompt = (type) => {
         {
         type: "input",
         message: "What is the employee's id?",
-        name: "id"
+        name: "id",
+        validate: function (id) {
+            valid = !Number.isNaN(parseInt(id))
+            if (valid) {
+                return true;
+            } else {
+                console.log(`   The ID must be numeric`)
+                return false;
+            }
+        }
         },
         {
         type: "input",
         message: "What is the employee's email?",
-        name: "email"
+        name: "email",
+        validate: function (email) {
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+            if (valid) {
+                return true;
+            } else {
+                console.log(`   Please enter a valid email`)
+                return false;
+            }
+        }
         }
     ]).then (function(basicData) { //then the specific info per employee type
         switch(type){
@@ -110,6 +128,17 @@ const employeeDataPrompt = (type) => {
             break;
         }
     })
+}
+
+function validateID (id){
+    console.log(Number.isInteger(id))
+    if(Number.isInteger((parseInt(id)))){
+        console.log(` The id must be numeric`);
+        return false;
+    }
+    else{
+        return true;
+    }
 }
 
 //Function writes the HTML file to the output path
