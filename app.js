@@ -124,7 +124,10 @@ const employeeDataPrompt = (type) => {
 }
 
 function validateNumeric (input) {
-    valid = !Number.isNaN(parseInt(input))
+    valid = Number.isInteger(parseInt(input)) && parseInt(input) == input;
+    console.log(Number.isInteger(parseInt(input)));
+    console.log(parseInt(input))
+    console.log(input)
     if (valid) {
         return true;
     } else {
