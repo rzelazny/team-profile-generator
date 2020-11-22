@@ -131,9 +131,19 @@ const employeeDataPrompt = (type) => {
                     type: "input",
                     message: "What is the intern's school name?",
                     name: "school"
-                    }
+                    },
+                    {
+                        type: "list",
+                        message: "How skilled is the intern at brewing coffee?",
+                        name: "coffeeAbility",
+                        choices:[
+                            "Poor",
+                            "Average",
+                            "Genuine barista"
+                        ]
+                        }
                 ]).then (function(typeData){
-                    newEmployee = new Intern(basicData.name, basicData.id, basicData.email, typeData.school);
+                    newEmployee = new Intern(basicData.name, basicData.id, basicData.email, typeData.school, typeData.coffeeAbility);
                     //Add the new employee to the employee array and get the next employee
                     employees.push(newEmployee);
                     employeeTypePrompt();
