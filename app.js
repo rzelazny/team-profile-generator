@@ -57,15 +57,7 @@ const employeeDataPrompt = (type) => {
         type: "input",
         message: "What is the employee's id?",
         name: "id",
-        validate: function (id) {
-            valid = !Number.isNaN(parseInt(id))
-            if (valid) {
-                return true;
-            } else {
-                console.log(`   The ID must be numeric`)
-                return false;
-            }
-        }
+        validate: validateNumeric
         },
         {
         type: "input",
@@ -79,7 +71,7 @@ const employeeDataPrompt = (type) => {
                 console.log(`   Please enter a valid email`)
                 return false;
             }
-        }
+            }
         }
     ]).then (function(basicData) { //then the specific info per employee type
         switch(type){
@@ -87,7 +79,8 @@ const employeeDataPrompt = (type) => {
                 inquirer.prompt([{
                     type: "input",
                     message: "What is the managers's office number?",
-                    name: "officeNum"
+                    name: "officeNum",
+                    validate: validateNumeric
                     }
                 ]).then (function(typeData){
                     newEmployee = new Manager(basicData.name, basicData.id, basicData.email, typeData.officeNum);
@@ -130,16 +123,15 @@ const employeeDataPrompt = (type) => {
     })
 }
 
-function validateID (id){
-    console.log(Number.isInteger(id))
-    if(Number.isInteger((parseInt(id)))){
-        console.log(` The id must be numeric`);
+function validateNumeric (input) {
+    valid = !Number.isNaN(parseInt(input))
+    if (valid) {
+        return true;
+    } else {
+        console.log(`   The ID must be numeric`)
         return false;
     }
-    else{
-        return true;
     }
-}
 
 //Function writes the HTML file to the output path
 const writeHTMLFile = (htmlString) => {
