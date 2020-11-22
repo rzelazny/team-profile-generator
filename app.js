@@ -49,7 +49,7 @@ const employeeTypePrompt = () => {
                 employeeTypePrompt();
             }
         }
-        else{
+        else{ //still adding team members
             employeeDataPrompt(response.empType);
         }
     })
@@ -86,7 +86,7 @@ const employeeDataPrompt = (type) => {
             }
             }
         }
-    ]).then (function(basicData) { //then the specific info per employee type
+    ]).then (function(basicData) { //then get the specific info per employee type
         switch(type){
             case "Manager":
                 inquirer.prompt([{
@@ -142,7 +142,7 @@ function validateNumeric (input) {
     if (valid) {
         return true;
     } else {
-        console.log(`   The ID must be numeric`)
+        console.log(`   The entry must be numeric`)
         return false;
     }
     }
