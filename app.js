@@ -29,7 +29,17 @@ const employeeTypePrompt = () => {
         name: "empType"
         }
     ]).then (function(response) {
+        //only one manager per team is allowed
+        if(response.empType === "Manager"){
+            if(employees.some((staff) => staff instanceof Manager)){
+                console.log("Each team has only one manager.");
+                employeeTypePrompt();
+                return;
+            }
+        }
+
         if(response.empType === "I'm done adding team members"){
+            //make sure the team has a manager
             if(employees.some((staff) => staff instanceof Manager)){
                 let htmlPage = render(employees);
                 writeHTMLFile(htmlPage);
