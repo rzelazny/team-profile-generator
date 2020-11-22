@@ -94,9 +94,20 @@ const employeeDataPrompt = (type) => {
                     message: "What is the managers's office number?",
                     name: "officeNum",
                     validate: validateNumeric
-                    }
+                    },
+                    {
+                        type: "list",
+                        message: "How does the manager like their coffee?",
+                        name: "coffeePref",
+                        choices:[
+                            "black",
+                            "with cream",
+                            "with sugar",
+                            "with cream and sugar"
+                        ]
+                        },
                 ]).then (function(typeData){
-                    newEmployee = new Manager(basicData.name, basicData.id, basicData.email, typeData.officeNum);
+                    newEmployee = new Manager(basicData.name, basicData.id, basicData.email, typeData.officeNum, typeData.coffeePref);
                     //Add the new employee to the employee array and get the next employee
                     employees.push(newEmployee);
                     employeeTypePrompt();
