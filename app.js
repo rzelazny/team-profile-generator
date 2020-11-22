@@ -15,9 +15,6 @@ const render = require("./lib/htmlRenderer");
 
 const employees = [];
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
 //Function prompts user for which type of member they'd like to add, or calls the render if they're done adding members.
 const employeeTypePrompt = () => {
     inquirer.prompt([{
@@ -123,11 +120,9 @@ const employeeDataPrompt = (type) => {
     })
 }
 
+//Function validates numeric input. Input must be an integer, but values that parse to an int (234234xx) are not permitted either
 function validateNumeric (input) {
     valid = Number.isInteger(parseInt(input)) && parseInt(input) == input;
-    console.log(Number.isInteger(parseInt(input)));
-    console.log(parseInt(input))
-    console.log(input)
     if (valid) {
         return true;
     } else {
