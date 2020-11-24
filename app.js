@@ -96,16 +96,16 @@ const employeeDataPrompt = (type) => {
                     validate: validateNumeric
                     },
                     {
-                        type: "list",
-                        message: "How does the manager like their coffee?",
-                        name: "coffeePref",
-                        choices:[
-                            "black",
-                            "with cream",
-                            "with sugar",
-                            "with cream and sugar"
-                        ]
-                        },
+                    type: "list",
+                    message: "How does the manager like their coffee?",
+                    name: "coffeePref",
+                    choices:[
+                        "black",
+                        "with cream",
+                        "with sugar",
+                        "with cream and sugar"
+                    ]
+                    },
                 ]).then (function(typeData){
                     newEmployee = new Manager(basicData.name, basicData.id, basicData.email, typeData.officeNum, typeData.coffeePref);
                     //Add the new employee to the employee array and get the next employee
@@ -120,19 +120,19 @@ const employeeDataPrompt = (type) => {
                     name: "githubName"
                     },
                     {
-                        type: "input",
-                        message: "What is the engineer's after hours phone number (xxx-xxx-xxxx)?",
-                        name: "phone",
-                        validate: function (phone) {
-                            valid =  /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)
-                            if (valid) {
-                                return true;
-                            } else {
-                                console.log(`   Please enter a phone number with area code`)
-                                return false;
-                            }
-                            }
+                    type: "input",
+                    message: "What is the engineer's after hours phone number (xxx-xxx-xxxx)?",
+                    name: "phone",
+                    validate: function (phone) {
+                        valid =  /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)
+                        if (valid) {
+                            return true;
+                        } else {
+                            console.log(`   Please enter a phone number with area code`)
+                            return false;
                         }
+                        }
+                    }
                 ]).then (function(typeData){
                     newEmployee = new Engineer(basicData.name, basicData.id, basicData.email, typeData.githubName, typeData.phone);
                     //Add the new employee to the employee array and get the next employee
@@ -147,15 +147,15 @@ const employeeDataPrompt = (type) => {
                     name: "school"
                     },
                     {
-                        type: "list",
-                        message: "How skilled is the intern at brewing coffee?",
-                        name: "coffeeAbility",
-                        choices:[
-                            "Poor",
-                            "Average",
-                            "Genuine barista"
-                        ]
-                        }
+                    type: "list",
+                    message: "How skilled is the intern at brewing coffee?",
+                    name: "coffeeAbility",
+                    choices:[
+                        "Poor",
+                        "Average",
+                        "Genuine barista"
+                    ]
+                    }
                 ]).then (function(typeData){
                     newEmployee = new Intern(basicData.name, basicData.id, basicData.email, typeData.school, typeData.coffeeAbility);
                     //Add the new employee to the employee array and get the next employee
