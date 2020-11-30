@@ -26,6 +26,8 @@ Requires installation of node.js and the inquirer package.
 
 Run the code via the terminal with command: node app
 
+[Demonstration video](https://drive.google.com/file/d/1sonbFJdq_y_zb3zBTxkDUGHbS3fQf2fc/view)
+
 Example output:
 
 ![Image of team profile HTML page](https://github.com/rzelazny/team-profile-generator/blob/main/assets/images/teamBuilderOutput.png)
